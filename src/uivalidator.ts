@@ -840,40 +840,10 @@ export function escape(text?: string): string {
 export function trimTime(d: Date): Date {
   return new Date(d.getFullYear(), d.getMonth(), d.getDate())
 }
-export function trimMinutes(d: Date | string): Date {
-  const t = new Date(d)
-  t.setMinutes(0)
-  t.setSeconds(0)
-  t.setMilliseconds(0)
-  return t
-}
-export function addYears(date: Date, n: number) {
-  const newDate = new Date(date)
-  newDate.setFullYear(newDate.getFullYear() + n)
-  return newDate
-}
-export function addMonths(date: Date, n: number) {
-  const newDate = new Date(date)
-  newDate.setMonth(newDate.getMonth() + n)
-  return newDate
-}
-export function addHours(date: Date, n: number) {
-  const newDate = new Date(date)
-  newDate.setHours(newDate.getHours() + n)
-  return newDate
-}
 export function addDays(d: Date, n: number): Date {
   const newDate = new Date(d)
   newDate.setDate(newDate.getDate() + n)
   return newDate
-}
-export function addSeconds(d: Date, n: number): Date {
-  const newDate = new Date(d)
-  newDate.setSeconds(newDate.getSeconds() + n)
-  return newDate
-}
-export function createDate(s: string): Date | undefined {
-  return s.length === 0 ? undefined : new Date(s)
 }
 export function formatDate(d: Date | null | undefined, dateFormat?: string, full?: boolean, upper?: boolean): string {
   if (!d) {
@@ -941,29 +911,7 @@ export function getYear(y: number, full?: boolean): string {
 function getD(n: number, fu: boolean): string {
   return fu ? pad(n) : n.toString()
 }
-export function datetimeToString(date?: Date | string): string | undefined {
-  if (!date || date === "") {
-    return undefined
-  }
-  const d2 = typeof date !== "string" ? date : new Date(date)
-  const year = d2.getFullYear()
-  const month = pad(d2.getMonth() + 1)
-  const day = pad(d2.getDate())
-  const hours = pad(d2.getHours())
-  const minutes = pad(d2.getMinutes())
-  const seconds = pad(d2.getSeconds())
-  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`
-}
-export function formatDateTime(date: Date | null | undefined, dateFormat?: string, full?: boolean, upper?: boolean): string {
-  if (!date) {
-    return ""
-  }
-  const sd = formatDate(date, dateFormat, full, upper)
-  if (sd.length === 0) {
-    return sd
-  }
-  return sd + " " + formatTime(date)
-}
+
 export function formatLongDateTime(date: Date | null | undefined, dateFormat?: string, full?: boolean, upper?: boolean): string {
   if (!date) {
     return ""
@@ -974,32 +922,9 @@ export function formatLongDateTime(date: Date | null | undefined, dateFormat?: s
   }
   return sd + " " + formatLongTime(date)
 }
-export function formatFullDateTime(date: Date | null | undefined, dateFormat?: string, s?: string, full?: boolean, upper?: boolean): string {
-  if (!date) {
-    return ""
-  }
-  const sd = formatDate(date, dateFormat, full, upper)
-  if (sd.length === 0) {
-    return sd
-  }
-  return sd + " " + formatFullTime(date, s)
-}
-export function formatTime(d: Date): string {
-  return pad(d.getHours()) + ":" + pad(d.getMinutes())
-}
+
 export function formatLongTime(d: Date): string {
   return pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds())
-}
-export function formatFullTime(d: Date, s?: string): string {
-  const se = s && s.length > 0 ? s : "."
-  return formatLongTime(d) + se + pad3(d.getMilliseconds())
-}
-export function dateToString(d: Date, milli?: boolean): string {
-  const s = `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`
-  if (milli) {
-    return s + pad3(d.getMilliseconds())
-  }
-  return s
 }
 function pad(n: number): string {
   return n < 10 ? "0" + n : n.toString()
@@ -1009,45 +934,4 @@ function pad3(n: number): string {
     return n.toString()
   }
   return n < 10 ? "00" + n : "0" + n.toString()
-}
-export interface Hour {
-  hours: number
-  minutes: number
-  seconds: number
-  milliseconds: number
-}
-const mi = 1000
-const mu = 60000
-const hr = 3600000
-export function diffHours(d1: Date, d2: Date): Hour | undefined {
-  if (!d1 || !d2) {
-    return undefined
-  }
-  const d = Math.abs(d1.getTime() - d2.getTime())
-  const ho = Math.floor(d / hr)
-  const m = Math.floor((d % hr) / mu)
-  const s = Math.floor((d % mu) / mi)
-  const l = Math.floor(((d % hr) % mu) % mi)
-  const dh: Hour = {
-    hours: ho,
-    minutes: m,
-    seconds: s,
-    milliseconds: l,
-  }
-  return dh
-}
-export function formatDiffHours(h: Hour, m?: boolean, s?: string): string {
-  const d = `${h.hours}:${pad(h.minutes)}:${pad(h.seconds)}`
-  if (m) {
-    const se = s && s.length > 0 ? s : "."
-    return d + se + pad3(h.milliseconds)
-  }
-  return d
-}
-export function diffHoursToString(d1: Date, d2: Date, m?: boolean, s?: string): string {
-  const d = diffHours(d1, d2)
-  if (!d) {
-    return ""
-  }
-  return formatDiffHours(d, m, s)
 }
