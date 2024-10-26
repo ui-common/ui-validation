@@ -1,6 +1,6 @@
 {
   "name": "ui-validation",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "UI Validation",
   "main": "./lib/index.js",
   "types": "./src/index.ts",
@@ -25,9 +25,6 @@
     "validator",
     "ui-validation",
     "ui validation",
-    "validation",
-    "ui validation",
-    "ui-validation",
     "ui-validator",
     "ui validator"
   ]
