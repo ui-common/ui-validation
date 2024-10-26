@@ -1,0 +1,34 @@
+{
+  "name": "ui-validation",
+  "version": "0.0.1",
+  "description": "UI Validation",
+  "main": "./lib/index.js",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build:lib": "tsc",
+    "clean:lib": "rimraf lib"
+  },
+  "devDependencies": {
+    "tslint": "5.10.0",
+    "typescript": "^3.3.3333",
+    "validation-core": "^0.0.3"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/ui-common/ui-validation"
+  },
+  "keywords": [
+    "validation",
+    "validator",
+    "ui-validation",
+    "ui validation",
+    "validation",
+    "ui validation",
+    "ui-validation",
+    "ui-validator",
+    "ui validator"
+  ]
+}
